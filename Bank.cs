@@ -34,9 +34,14 @@ namespace ConsoleBankApplication
         //main menu
          public static void showMenu2()
          {
+             DateTime now=DateTime.Now;
+
              Console.WriteLine(" ------------------------------------------");
+             Console.WriteLine("|                      "+now+"|");
+             Console.WriteLine("|                                          |");
              Console.WriteLine("|          C ATM BANK LIMITED              |");
-             Console.WriteLine("|           Customer Banking               |");        
+             Console.WriteLine("|           Customer Banking               |");  
+             Console.WriteLine("|                                          |");      
              Console.WriteLine("|    1. Deposit Funds                      |");
              Console.WriteLine("|    2. Withdraw Funds                     |");
              Console.WriteLine("|    3. Transfer Funds                     |");
@@ -94,10 +99,16 @@ namespace ConsoleBankApplication
                                         {
                                             
                                             case 1:
-                                                Deposit();
+                                                //Deposit
+                                                Console.Write("Enter amount : ");
+                                                int DepositAmount = Convert.ToInt32(Console.ReadLine());
+                                                Account account2=this.accountdao.Deposit(User1,DepositAmount);
                                                 break;
                                             case 2:
-                                                Withdraw();
+                                                //Withdraw
+                                                Console.Write("Enter amount : ");
+                                                int WithdrawAmount = Convert.ToInt32(Console.ReadLine());
+                                                Account account3=this.accountdao.Withdraw(User1,WithdrawAmount);
                                                 break;
                                             case 3:
                                                 Transfer();
@@ -108,7 +119,11 @@ namespace ConsoleBankApplication
                                                 break;    
                                             case 5:
                                                 //Transaction
-                                                Transaction transaction1=this.accountdao.Transactions(User1);
+                                                Transaction[] transaction1=this.accountdao.Transactions(User1);
+                                                //foreach(int i in Transaction1)
+                                                //{
+                                                 //   Console.WriteLine(transaction1[i]);
+                                                //}
                                                 break; 
                                             case 6:
                                                 //ChangePin
@@ -144,15 +159,9 @@ namespace ConsoleBankApplication
                      Console.WriteLine("Thank you for using C ATM Bank. ");
 
          } 
-         public static void Deposit()
-         {
+         
 
-         }
-
-         public static void Withdraw()
-         {
-
-         }
+         
 
          public static void Transfer()
          {

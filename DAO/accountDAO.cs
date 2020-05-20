@@ -90,7 +90,7 @@ namespace ConsoleBankApplication.DAO
             Console.WriteLine( " your transaction is sucessfully");
             Console.WriteLine( " insert start");
             //conn.Open();
-            string insertQuery = "INSERT INTO Transactions (UserID,AccountNO,TranType,TranDate,TranAmount,Balance) Values ("ID.UserID+","+account2.AccountNO+",'D',datetime(now),"+amt+","+Totamount+")";           
+            string insertQuery = "INSERT INTO Transactions (,AccountNO,TranType,TranDate,TranAmount,Balance) Values ("+account2.AccountNO+",'D',datetime(now),"+amt+","+Totamount+")";           
             SqliteCommand insertCommand = new SqliteCommand(insertQuery, conn);
          
             Console.WriteLine( " insert end");
@@ -119,11 +119,10 @@ namespace ConsoleBankApplication.DAO
                 SqliteDataReader reader = selectCommand.ExecuteReader();
                 Account account3=new Account();
                 reader.Read();
-                //{
-      
-                    account3.Balance=reader.GetInt32(0);
-                    Console.WriteLine(account3.Balance);
-                //}
+
+                account3.Balance=reader.GetInt32(0);
+                    
+                
                 
                 if(account3.Balance >= wamt)
                 {
@@ -171,13 +170,11 @@ namespace ConsoleBankApplication.DAO
             conn.Open();
             SqliteDataReader reader = selectCommand.ExecuteReader();
             Account account1=new Account();
-            while (reader.Read())
-            {
-        
-                account1.Balance=reader.GetInt32(0);  
+            reader.Read();
+            account1.Balance=reader.GetInt32(0);  
                          
 
-            }
+            
             conn.Close();
             Console.WriteLine("your Balancs is :"+account1.Balance);
             return account1;
@@ -186,31 +183,34 @@ namespace ConsoleBankApplication.DAO
 
          public Transaction[] Transactions(User ID)
         {
-            /*Console.WriteLine("uid : "+ID.UserID);
+           
             string countQuery = "SELECT  COUNT(*) FROM Transactions WHERE UserID = "+ ID.UserID;
             SqliteCommand countCommand = new SqliteCommand(countQuery, conn);
-            */
-            conn.Open();
-            //SqliteDataReader reader = countCommand.ExecuteReader();
-            //int num=reader.GetInt32(0); 
-            Transaction[] transaction1= new Transaction[2];
-            //Console.WriteLine("count : "+num);
             
-            string tranQuery = "SELECT  TranID,TranType,TranAmount,Balance FROM Transactions WHERE UserID = "+ ID.UserID;                           
+            conn.Open();
+            
+            Int64 num2=(Int64)countCommand.ExecuteScalar();
+        
+            Transaction[] transaction1= new Transaction[num2];
+
+            string tranQuery = "SELECT  TranID,AccountNO,TranType,TranAmount,Balance FROM Transactions WHERE UserID = "+ ID.UserID;                           
             SqliteCommand selectCommand = new SqliteCommand(tranQuery, conn);    
             SqliteDataReader reader1 = selectCommand.ExecuteReader();
             
             int i=0;
+            Console.WriteLine("tranID AccountNO Trantype TranAmount Balance");
             while (reader1.Read())
                 {
                 Transaction tran2=new Transaction();
                 tran2.TranID=reader1.GetInt32(0); 
-                tran2.TranType=reader1.GetString(0);  
-                tran2.TranAmount=reader1.GetInt32(0);  
-                tran2.Balance=reader1.GetInt32(0); 
+                tran2.AccountNO=reader1.GetInt32(1);
+                tran2.TranType=reader1.GetString(2);  
+                tran2.TranAmount=reader1.GetInt32(3);  
+                tran2.Balance=reader1.GetInt32(4); 
+                
                 transaction1[i] = tran2;
-                Console.WriteLine( tran2.TranID+" "+ tran2.TranType+" "+tran2.TranAmount+" "+ tran2.Balance );
-                Console.WriteLine(tran2.TranType);
+                Console.WriteLine( "  "+tran2.TranID+"     "+tran2.AccountNO+"    "+ tran2.TranType+"      "+tran2.TranAmount+"      "+ tran2.Balance );
+                
                 i++;            
 
                 }

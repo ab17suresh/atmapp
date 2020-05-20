@@ -37,7 +37,7 @@ namespace ConsoleBankApplication
              DateTime now=DateTime.Now;
 
              Console.WriteLine(" ------------------------------------------");
-             Console.WriteLine("|                      "+now+"|");
+             Console.WriteLine("|                    "+now+" |");
              Console.WriteLine("|                                          |");
              Console.WriteLine("|          C ATM BANK LIMITED              |");
              Console.WriteLine("|           Customer Banking               |");  
@@ -58,10 +58,7 @@ namespace ConsoleBankApplication
         public void  MainAtm()
          {
            
-                      
-
-
-            
+      
                  showMenu1();
                  
             
@@ -71,22 +68,15 @@ namespace ConsoleBankApplication
                      switch (menu1)
                      {
                          case 1:
-                        
-                            
-
-
+   
                              Console.Write("Enter ATM UserID: ");
                              UserID = Convert.ToInt32(Console.ReadLine());
                              Console.Write("Enter  PIN: ");
                              Pin = Convert.ToInt32(Console.ReadLine());
                              User User1=this.accountdao.Login(UserID,Pin);
-
-
-                             
-                             
+                    
                              if(User1.Name != null)                            
                              {
-                                
                                 
 
                                   Console.WriteLine("hi " +User1.Name +"...!");
@@ -111,7 +101,7 @@ namespace ConsoleBankApplication
                                                 Account account3=this.accountdao.Withdraw(User1,WithdrawAmount);
                                                 break;
                                             case 3:
-                                                Transfer();
+                                                //Transfer
                                                 break;
                                             case 4:
                                                 //CheckBalance
@@ -120,10 +110,7 @@ namespace ConsoleBankApplication
                                             case 5:
                                                 //Transaction
                                                 Transaction[] transaction1=this.accountdao.Transactions(User1);
-                                                //foreach(int i in Transaction1)
-                                                //{
-                                                 //   Console.WriteLine(transaction1[i]);
-                                                //}
+                                               
                                                 break; 
                                             case 6:
                                                 //ChangePin
@@ -163,10 +150,7 @@ namespace ConsoleBankApplication
 
          
 
-         public static void Transfer()
-         {
-
-         }
+         
 
        
            

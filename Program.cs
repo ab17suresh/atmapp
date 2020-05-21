@@ -7,17 +7,13 @@ using Microsoft.Data.Sqlite;
 
 
 namespace ConsoleBankApplication
-{
-    
+{   
     class Program
     {
-
         static void Main(string[] args)
         {
             Bank b1= new Bank();
-            b1.MainAtm();
-            
+            b1.MainAtm();          
         }
-
     }
 }

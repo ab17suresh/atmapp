@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Data.SqlClient;
 using System.Data;
@@ -78,12 +79,14 @@ namespace ConsoleBankApplication
                                                 Console.Write("Enter amount : ");
                                                 int DepositAmount = Convert.ToInt32(Console.ReadLine());
                                                 Account account2=this.accountdao.Deposit(User1,DepositAmount);    
+                                                Console.Beep();
                                                 break;                                               
                                             case 2:
                                                 //Withdraw
                                                 Console.Write("Enter amount : ");
                                                 int WithdrawAmount = Convert.ToInt32(Console.ReadLine());
                                                 Account account3=this.accountdao.Withdraw(User1,WithdrawAmount);
+                                                Console.Beep();
                                                 break;
                                             case 3:
                                                 //Transfer                                           
@@ -92,27 +95,32 @@ namespace ConsoleBankApplication
                                                 Console.Write("Enter amount : ");
                                                 int sendingAmount = Convert.ToInt32(Console.ReadLine());
                                                 Account account4=this.accountdao.Transfer(User1,accountno,sendingAmount);
+                                                Console.Beep();
                                                 break;
                                             case 4:
                                                 //CheckBalance
                                                 Account account1=this.accountdao.CheckBalance(User1);
                                                 Console.WriteLine("your Balancs is :"+account1.Balance);
+                                                Console.Beep();
                                                 break;    
                                             case 5:
                                                 //Transaction
-                                                Transaction[] transaction1=this.accountdao.Transactions(User1);                                              
+                                                Transaction[] transaction1=this.accountdao.Transactions(User1);    
+                                                Console.Beep();                                          
                                                 break; 
                                             case 6:
                                                 //ChangePin
                                                 Console.Write("Enter New Pin : ");
                                                 int NewPin = Convert.ToInt32(Console.ReadLine());
                                                 User User2=this.accountdao.ChangePin(User1,NewPin);
+                                                Console.Beep();
                                                 break; 
                                             case 0:
                                                 Console.WriteLine("  logout succesfully.");
                                                 break;
                                             default:
                                                 Console.WriteLine("Invalid Option Entered.");
+                                                MainAtm();
                                                 break;
                                         }
                                     }
@@ -127,10 +135,12 @@ namespace ConsoleBankApplication
                             break;
                         default:
                             Console.WriteLine("Invalid Option Entered.");
+                            MainAtm();
                             break;
                     }
                 
                      Console.WriteLine("Thank you for using C ATM Bank. ");
+                    
          } 
     }
 }

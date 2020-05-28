@@ -5,10 +5,16 @@ namespace ConsoleBankApplication.DAO
 {
     public class AccountDAO
     {
-        string DataSource="./bank.db";    
+        //string DataSource="./bank.db";    
         SqliteConnection conn;    
         public AccountDAO()
         {
+            /*IConfiguration Configuration = new ConfigurationBuilder()
+            .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+            .AddEnvironmentVariables()
+            .Build();
+            var section = Configuration.GetSection("ConnectionString");
+            myConnectionString = section.Value;*/
             var connectionStringBuilder = new SqliteConnectionStringBuilder();
             connectionStringBuilder.DataSource = "./bank.db";
             connectionStringBuilder.Mode=SqliteOpenMode.ReadWriteCreate;
@@ -181,6 +187,7 @@ namespace ConsoleBankApplication.DAO
             SqliteDataReader reader = selectCommand.ExecuteReader();
             Account account1=new Account();
             reader.Read();
+            account1.Balance= reader.GetInt32(0);
             conn.Close();
             return account1;
         }
